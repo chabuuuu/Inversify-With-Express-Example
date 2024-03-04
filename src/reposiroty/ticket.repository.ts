@@ -1,28 +1,13 @@
-import { injectable } from "inversify";
-import { IRepository } from "./i.repository";
+import { inject, injectable } from "inversify";
+import { IRepository } from "./base/base.repository.ts/i.repository";
 import "reflect-metadata"
-@injectable()
-export class TicketRepository implements IRepository<any>{
-    create(item: any): Promise<any> {
-        throw new Error("Method not implemented.");
-    }
-    update(id: string, item: any): Promise<any> {
-        throw new Error("Method not implemented.");
-    }
-    delete(id: string): Promise<boolean> {
-        throw new Error("Method not implemented.");
-    }
-    find(item: any): Promise<any[]> {
-        throw new Error("Method not implemented.");
-    }
-    findOne(id: string): Promise<any> {
-        const res: any = "Hello World!";
-        console.log('Hello from ticket repository');
-        
-        return res
-    }
-    findAll(): Promise<any[]> {
-        throw new Error("Method not implemented.");
-    }
+import { BaseRepository } from "./base/base.repository.ts/base.repository";
+import { ITYPES } from "../types/interface.types";
+import { Model } from "../models/model";
 
+@injectable()
+export class TicketRepository extends BaseRepository{
+    constructor(@inject(ITYPES.Model) model : Model) {
+        super(model.ticket);
+    }
 }
